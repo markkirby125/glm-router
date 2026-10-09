@@ -214,4 +214,4 @@ systemctl --user daemon-reload
 
 ## Licence
 
-No licence has been chosen yet. Until one is added, others have no right to reuse this code.
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Paul Kirby.
