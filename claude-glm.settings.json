@@ -1,0 +1,22 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:18787",
+    "ENABLE_TOOL_SEARCH": "true"
+  },
+  "modelPicker": {
+    "options": [
+      {
+        "model": "glm-5.3",
+        "label": "GLM-5.3 (Pro)",
+        "description": "z.ai flagship via local glm-router",
+        "behavesAs": "claude-sonnet-5-5"
+      },
+      {
+        "model": "glm-5.3-flash",
+        "label": "GLM-5.3 Flash",
+        "description": "z.ai Flash via local glm-router",
+        "behavesAs": "claude-haiku-5-5"
+      }
+    ]
+  }
+}
