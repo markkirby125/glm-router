@@ -118,6 +118,28 @@ test('GLM models go to z.ai with the z.ai key and no Anthropic credentials', asy
   }
 });
 
+test('effort fields reach the z.ai upstream unchanged for GLM models', async () => {
+  const t = await setup();
+  try {
+    for (const model of ['glm-5.3', 'glm-5.3-flash']) {
+      await post(t.base, '/v1/messages?beta=true', { 'x-api-key': 'sk-ant-test' }, {
+        model,
+        messages: [],
+        thinking: { type: 'adaptive', display: 'omitted' },
+        output_config: { effort: 'xhigh' },
+      });
+    }
+    assert.equal(t.zai.seen.length, 2);
+    for (const seen of t.zai.seen) {
+      const body = JSON.parse(seen.body);
+      assert.deepEqual(body.thinking, { type: 'adaptive', display: 'omitted' });
+      assert.deepEqual(body.output_config, { effort: 'xhigh' });
+    }
+  } finally {
+    await t.close();
+  }
+});
+
 test('streamed responses from Anthropic reach the client intact', async () => {
   const events = ['event: message_start\ndata: {"a":1}\n\n', 'event: content_block_delta\ndata: {"b":2}\n\n', 'event: message_stop\ndata: {}\n\n'];
   const t = await setup({
