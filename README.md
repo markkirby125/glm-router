@@ -137,6 +137,18 @@ Inside `claude-glm`, Opus, Sonnet and Haiku still work, but these are unavailabl
 
 Use plain `claude` when you need those.
 
+### Effort levels
+
+`/effort` works on the GLM rows (verified against z.ai's Anthropic-compatible
+endpoint, October 2026). Claude Code sends the level as
+`output_config.effort` with `thinking: {"type": "adaptive"}`, and z.ai
+validates it against `none, minimal, low, medium, high, xhigh, max` — every
+level the rows offer (`low`, `medium`, `high`, `xhigh`, `max`) is accepted and
+honoured: `low`/`medium` skip thinking on easy prompts, `high`/`xhigh`/`max`
+reason. The router passes the field through untouched; no translation is
+needed. `thinking.budget_tokens` is ignored by z.ai, but Claude Code does not
+send it for `behavesAs` 5.5-generation rows, so it never appears on the wire.
+
 ## Configuration
 
 Environment variables for `router.js`:
